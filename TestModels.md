@@ -1,4 +1,4 @@
-#Projeto de teste em Python usando pytest
+# Projeto de teste em Python usando pytest
 
 Este projeto em python utiliza o Django REST Framework para criar uma API CRUD(Create,read,update,delete).
 Nesse projeto adicionamos o pytest para testar as models, serializers e endpoints.
@@ -8,23 +8,23 @@ Rodar todos os testes utiliza o comando:
 pytest
 
 
-#INTRODUCAO AOS TESTES
+# INTRODUCAO AOS TESTES
 Este projeto utiliza testes automatizados para garantir a funcionalidade e confiabilidade.
 
 
 
-#PLANEJAMENTO DE TESTES
+# PLANEJAMENTO DE TESTES
 Objetivo:Garantir que o modelo Movie funciona de forma correta e retorne o resultado desejado.
 Ferramentas:Utilizamos o framework de testes do Django para configurar e validar os testes.
 
 
-#DESCRICAO DOS CASOS DE TESTES
+# DESCRICAO DOS CASOS DE TESTES
 
 °Models
 O arquivo Teste.models.py no codigo tem como objetivo verificar a funcionalidade do modelo Movie dentro do projeto Django.Ele verifica a criacao do modelo Movie e representação em string
 
 
-#DETALHES DOS TESTES e CODIGO
+# DETALHES DOS TESTES e CODIGO
 
 Nome do arquivo  **test.models.py**
 
