@@ -1,6 +1,7 @@
 from rest_framework.generics import RetrieveUpdateDestroyAPIView, ListCreateAPIView
 from rest_framework.permissions import IsAuthenticated
 from django_filters import rest_framework as filters
+from django.shortcuts import render
 from .models import Movie
 from .permissions import IsOwnerOrReadOnly
 from .serializers import MovieSerializer
@@ -27,6 +28,13 @@ class RetrieveUpdateDestroyMovieAPIView(RetrieveUpdateDestroyAPIView):
     permission_classes = [IsAuthenticated, IsOwnerOrReadOnly]
 
 
+def index_page(request):
+    return render(request, 'movies_pages/index.html')
 
+
+def movies_view(request):
+    movies = Movie.objects.all()  # Pega todos os objetos filmes registrados no banco
+    context = {"movies": movies}  # Cria um dicionário com esses objetos e passa eles para o template/view
+    return render(request, "movies_pages/movies.html", context)
 
 
