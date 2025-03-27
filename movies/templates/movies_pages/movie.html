@@ -1,0 +1,18 @@
+{% extends "movies_pages/base.html" %}
+
+{% block content %}
+<div class="container mt-5">
+  <h2 class="text-center mb-4">Details About "{{movie.title}}"</h2>
+
+  <div class="card p-4 shadow-sm">
+    <h4 class="text-primary">Genre:</h4>
+    <p class="fs-5">{{movie.genre}}</p>
+
+    <h4 class="text-primary">Year:</h4>
+    <p class="fs-5">{{movie.year}}</p>
+
+    <p class="text-muted mt-3">Added by <strong>{{movie.creator}}</strong> on <em>{{movie.created_at}}</em></p>
+    <p class="text-muted">Last updated on <em>{{movie.updated_at}}</em></p>
+  </div>
+</div>
+{% endblock content %}
