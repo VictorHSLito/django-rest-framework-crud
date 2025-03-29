@@ -38,3 +38,7 @@ def movies_view(request):
     return render(request, "movies_pages/movies.html", context)
 
 
+def single_movie_view(request, movie_id):
+    movie = Movie.objects.get(id=movie_id)
+    context = {"movie": movie}
+    return render(request, "movies_pages/movie.html", context)
