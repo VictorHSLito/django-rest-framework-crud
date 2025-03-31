@@ -1,4 +1,4 @@
-from django.test import TestCase
+from django.test import TestCase, Client
 from django.contrib.auth.models import User
 from rest_framework.test import APIClient
 from movies.models import Movie
@@ -7,9 +7,9 @@ from movies.models import Movie
 class MovieAPITest(TestCase):
     def setUp(self):
         # Prepara o ambiente de testes
-        self.client = APIClient()
+        # self.client = APIClient()
         self.user = User.objects.create_user(username="user", password="password")
-        self.client.force_authenticate(user=self.user)
+        # self.client.force_authenticate(user=self.user)
 
         self.filme = Movie.objects.create(
             title="Filme teste",
@@ -35,11 +35,13 @@ class MovieAPITest(TestCase):
         self.assertEqual(response.status_code, 200)  # Espera status 200 (OK)
         self.assertGreater(len(response.json()), 0)  # Lista deve ter ao menos 1 item
 
-    def test_requisicao_sem_autenticacao(self):
-        """Testa se um usuário não autenticado recebe erro 401"""
-        client = APIClient()  # Cliente sem autenticação
-        response = client.get("/api/v1/movies/")
-        self.assertEqual(response.status_code, 401)  # Espera erro 401 (Unauthorized)
+    def test_requisicao_com_autenticacao(self):
+        """Testa se um usuário autenticado recebe a resposta 200"""
+        client = APIClient()  # Crio um objeto do tipo APIClient
+        user = User.objects.create_user(username="UserTest", password="Senha123")  # Cria um objeto do tipo User
+        client.force_authenticate(user=user)  # Força autenticação do usuário client usando as credenciais do objeto user
+        response = client.get("/api/v1/movies/")  # Acessa a rota por meio do objeto client
+        self.assertEqual(response.status_code, 200)  # Retorna o código HTTP
 
     def test_criar_filme_sem_creator(self):
         """Testa se a API retorna erro ao tentar criar um filme sem um criador"""
@@ -74,3 +76,10 @@ class MovieAPITest(TestCase):
         response = self.client.get(f"/api/v1/movies/{self.filme.id}/")
         self.assertEqual(response.status_code, 200)
         self.assertEqual(response.json()["title"], "Filme de Teste")
+
+    def test_requisicao_sem_autenticacao(self):
+        """Testa se um usuário não autenticado recebe a resposta 401"""
+        client = APIClient()  # Cria um objeto do tipo APIClient
+        client.login(username="UserTest", password="Senha123")  # Tenta fazer o Login com crendenciais inválidas e sem autenticação
+        response = client.get("/api/v1/movies/")  # Acessa a rota da API
+        self.assertEqual(response.status_code, 401)  # Retorna a respota obtida

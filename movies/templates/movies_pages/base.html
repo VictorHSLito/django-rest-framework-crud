@@ -28,7 +28,7 @@
                     <a class="nav-link" href="#">Hello, {{ user.username }}</a>
                 </li>
                 <li class="nav-item">
-                    <form method="post" action="{% url 'users:logout' %}" class="d-inline">
+                    <form method="post" action="{% url 'admin:logout' %}" class="d-inline">
                         {% csrf_token %}
                         <button type="submit" class="btn btn-link nav-link p-0" style="border: none; background: none; cursor: pointer;">
                             Log out
