@@ -1,4 +1,5 @@
 from django.db import models
+from django.db.models.functions import *
 
 
 class Movie(models.Model):
@@ -14,3 +15,5 @@ class Movie(models.Model):
 
     class Meta:
         ordering = ['-id']
+
+ano = ExtractYear(Movie)
